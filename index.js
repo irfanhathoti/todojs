@@ -178,6 +178,7 @@ function strikeOff(id) {
                 document.getElementById('iid' + task.taskID).style.visibility = "hidden";
             }
         })
+
     });
 }
 
