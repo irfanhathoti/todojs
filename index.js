@@ -1,134 +1,183 @@
-var arr = [];
+// OPEN ADD-LIST BOX
+document.querySelector("#list_Add_Btn_1").addEventListener("click", function () {
+    document.querySelector("#backGround").style.filter = "blur(15px)";
+    document.querySelector(".container").style.pointerEvents = "none";
+    document.querySelector("#dispay_List_Modal").classList.add("active");
+});
 
-function AddBlock()
-{
-    const dynamicBox = document.getElementById("box")
-    dynamicBox.style.visibility = "visible"
-    dynamicBox.style.position = "absolute"
-    dynamicBox.style.top = "120px"
-    const Addlist = document.getElementById("newlist");
-    Addlist.style.visibility = "hidden";
+// OPEN ADD-LIST BOX
+document.querySelector("#list_Add_Btn_2").addEventListener("click", function () {
+    document.querySelector("#backGround").style.filter = "blur(15px)";
+    document.querySelector(".container").style.pointerEvents = "none";
+    document.querySelector("#dispay_List_Modal").classList.add("active");
+});
 
-    // blur background after add the block
-    const Blur = document.getElementById("blur");
-    Blur.style.filter = "blur(3px)";
-   
+// CLOSE ADD-LIST BOX
+document.querySelector("#list_Back_Btn").addEventListener("click", function () {
+    document.querySelector("#backGround").style.filter = "none";
+    document.querySelector(".container").style.pointerEvents = "all";
+    document.querySelector("#dispay_List_Modal").classList.remove("active");
+});
 
 
-}
 
-function RemoveBox()
-{
-    const RmvBox = document.getElementById("box");
-    RmvBox.style.visibility = "hidden";
-    const Blur = document.getElementById("blur");
-    Blur.style.filter = "blur(0px)"
+// GETTING ALL REQUIRED ELEMENTS 
 
-}
+const createListTitle = document.querySelector("#create_ListTitle");
+const createList = document.querySelector("#create_List");
+const listContainer = document.querySelector("#list_Container");
+let listBox = [];
 
-// var arr = [];
-function AddTask()
-{
-    const cptur = document.getElementById("input").value;
-    var myobj = {
-        text:cptur
+create_ListTitle.onkeypress = () => {
+    if (createListTitle.value.trim() != 0) {
+        createList.classList.add("active"); // active the add button
     }
-    arr.push(myobj);
-    console.log(arr .length)
+}
 
-    //remove the "No item text"
-    const remv = document.getElementById("noitm");
-    remv.style.display = "none"
 
-   //creating the cards
-    const element = document.createElement("div");
-    element.setAttribute("id","box1");
-    element.innerText = arr[arr.length - 1].text;
-    const a = document.getElementById("parent").appendChild(element);
+createList.onclick = () => {
+    let userData = createListTitle.value; // getting users value
+
+    const list = {
+        id: Date.now(),    // creating unique-id
+        name: userData,    // setting list-name
+        subTask: []
+    }
+
+    listBox.push(list);
     
-    //creat border
+    addList(); // invoking showList()
+    createNewTask();
 
-    var createBorder = document.createElement("hr");
-    element.appendChild(createBorder);
+    createList.classList.remove("active"); // unactive the add button
+    createListTitle.value = ""; // once task added leave the input-field blank
 
-    const CreatPara = document.createElement("p")
-    CreatPara.setAttribute("id","para");
-    CreatPara.innerText = "Hi"
-    element.appendChild(CreatPara);
-    console.log(CreatPara)
+    document.querySelector("#backGround").style.filter = "none";
+    document.querySelector(".container").style.pointerEvents = "all";
+    document.querySelector("#dispay_List_Modal").classList.remove("active");
 
-    //creating a icons inside the cards
+    const noitm = document.getElementById("noitem");
+    noitm.style.display = "none"
 
-    const creatDelete = document.createElement("button");
-    creatDelete.setAttribute("id","delete");
-    creatDelete.innerHTML = '<i class="fas fa-trash-alt"></i>'
-    element.appendChild(creatDelete);
-    creatDelete.onclick = function(){
-        DeleteCard()
-        // function DeleteCard()
-    }
-    function DeleteCard()
-    {
-        element.style.display ="none"
-    }
-
-    //creat Add Icon on the card
-
-    const CreatAdd = document.createElement("button");
-    CreatAdd.setAttribute("id","plus");
-    CreatAdd.innerHTML = '<i class="fas fa-plus-circle"></i>'
-    element.appendChild(CreatAdd);
-
-    //Creat the "New list Box"
-
-    CreatAdd.onclick = function()
-    {
-        AddNewList()
-    }
-    function AddNewList()
-    {
-        const Addlist = document.getElementById("newlist");
-        Addlist.style.visibility = "visible";
-        Addlist.style.position  = "absolute"
-        Addlist.style.top = "120px"
-
-        // blur background after add the block
-
-        const Blur = document.getElementById("blur");
-        Blur.style.filter = "blur(3px)";
-
-        //after click the plus button the new list is removed
-
-        const RmvBox = document.getElementById("box");
-        RmvBox.style.visibility = "hidden";
-        
-    }
 }
 
-var array = []
 
-function AddList()
-{
-    const List = document.getElementById("data").value;
-    var newobj = {
-        data:List
-    }
-    console.log(newobj)
-    array.push(newobj)
+// FUNCTION TO ADD A LIST INSIDE LIST-CONTAINER
+function addList() {
+    let newListTag = '';
+    listBox.forEach(element => {
+        newListTag += `
+        <div class="list-box" id="${element.id}">
+            <p class="list-heading">
+                <span>${element.name}</span>
+            </p>
+            <hr>
+            <ul class="items-container" id="${'id' + element.id}"></ul>
+            <span class="list-tools">
+                <span onclick="addTask(${element.id})">
+                <i class="fas fa-plus-circle"></i>
+                </span>
+                <span onclick="deleteList(${element.id})">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </span>
+        </div>`;
+    });
+    listContainer.innerHTML = newListTag; //adding new list's inside container
 
-    const Para = document.getElementById("para");
-    // Para.appendChild(newobj)
-    console.log(array)
-    console.log(List)
+    //CLICK THE CARD THAT CARD WILL BE SHOWN
 
+
+}
+
+addList(); // invoking showList()
+
+// FUNCTION TO DELETE A LIST
+function deleteList(id) {
+    listBox.forEach((element, index) => {
+        if (element.id === id) {
+            listBox.splice(index, 1);
+        }
+    });
+    addList();
+    createNewTask();
+}
+
+// FUNCTION TO ADD A TASK
+function addTask(id) {
+
+    listBox.forEach(element => {
+        if(element.id === id) {
+            document.querySelector("#backGround").style.filter = "blur(15px)";
+            document.querySelector(".container").style.pointerEvents = "none";
+            document.querySelector("#display_Task_Modal").classList.add("active");
+
+            const taskTitle = document.querySelector("#create_TaskTitle");
+            const createTask = document.querySelector("#create_Task");
+            
+
+            taskTitle.onkeypress = () => {
+                if(taskTitle.value.trim() != 0) {
+                    createTask.classList.add("active");
+                }
+            }
+
+            createTask.onclick = () => {
+                let userTask = taskTitle.value;
+                
+                listBox.forEach((element, index) => {
+                    if(element.id === id) {
+                        const task ={
+                            taskID : Date.now(),
+                            taskName : userTask
+                        }
+                        listBox[index].subTask.push(task);
+                    }
+                });
+                createNewTask();
+                
+                createTask.classList.remove("active");
+                taskTitle.value = ""; 
+                
+                document.querySelector("#backGround").style.filter = "none";
+                document.querySelector(".container").style.pointerEvents = "all";
+                document.querySelector("#display_Task_Modal").classList.remove("active");
+            }
+        }
+    });
+    // CLOSE ADD-TASK POP-UP
+    document.querySelector("#task_Back_Btn").onclick = () => {
+        document.querySelector("#backGround").style.filter = "none";
+        document.querySelector(".container").style.pointerEvents = "all";
+        document.querySelector("#display_Task_Modal").classList.remove("active");
     
+    }
 }
 
-function RemoveList()
-{
-    const RmvList = document.getElementById("newlist");
-    RmvList.style.visibility = "hidden"
-
-    const Blur = document.getElementById("blur");
-    Blur.style.filter = "blur(0px)"
+function createNewTask() {
+    listBox.forEach(element => {
+        let taskContainer = document.getElementById('id' + element.id);
+        let newTaskTag = '';
+        element.subTask.forEach(task => {
+            newTaskTag += `
+            <li>
+                <span class="task-name" id="${'tid' + task.taskID}">${task.taskName}</span>
+                <i class="fas fa-check" id="${'iid' + task.taskID}" onclick=strikeOff(${task.taskID})></i>
+            </li>`;
+        })
+        taskContainer.innerHTML = newTaskTag;
+    })
 }
+
+// // FUNCTION TO DELETE A LIST
+function strikeOff(id) {
+    listBox.forEach(element => {
+        element.subTask.forEach(task => {
+            if(task.taskID === id) {
+                document.getElementById('tid' + task.taskID).style.textDecoration = "line-through";
+                document.getElementById('iid' + task.taskID).style.visibility = "hidden";
+            }
+        })
+    });
+}
+

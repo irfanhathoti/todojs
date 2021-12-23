@@ -1,192 +1,406 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Quicksand:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+#noitem
+{
+    color:white;
+    /* font-family:'roboto',sans-serif; */
+    font-size:30px;
+    font-family: 'Quicksand', sans-serif;
+    margin-right:680px;
+}
 body
 {
     background-color: black;
 }
 
-.task
-{
-    color: white;
-    font-size: 30px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 300px;
-    margin-top: 100px;
+.background {
+    background-image: url("./images/background-cover.jpg"); 
+    background-size: cover;
+     width: 100%;
+    height: 100vh;
 }
-.list
-{
-    color: white;
-    font-size: 30px;
-    margin: 10px;
-    font-family: 'Roboto', sans-serif;
+
+.container {
+    width: 83%;
+    height: 83%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
-#btn
-{
+
+.container .top-container {
+    height: 14%;
+    width: 90%;
+    font-family:sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .top-container .left-content {
+    width: 50%;
+    font-size: 50px;
+} 
+
+.container .top-container .left-content .text-bold {
+    text-decoration: none;
+    color: white;
+}
+
+.container .top-container .left-content .text-light {
+    font-family: 'Quicksand', sans-serif;
+    margin-left: 2px;
+    color: white;
+}
+
+.container .top-container .right-content {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.container .top-container .right-content .add-button {
+    font-size: 30px;
     color: red;
-    font-size: x-large;
-    margin-left: 410px;
-    border: 0px;
-    /* margin-top: 200px; */
-    background-color: black;
+    /* transition: 0.5s ease-in-out; */
+}
+
+
+.container .top-container .right-content .text-small {
+    font-family: 'Quicksand', sans-serif;
+    margin-left: 10px;
+    font-size: 30px;
+    /* transition: 0.5s ease-in-out; */
+    color: white;
+}
+
+.container .bottom-container {
+    width: 95%;
+    height: 75%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.container .bottom-container .list-box {
+    width: 240px;
+    height: 322px;
+    background-color: white;
+    border: 1px solid red;
+    border-radius: 10px;
+    margin: 30px auto;
+    transition: 0.5s ease-in-out;
+    position: relative;
+}
+
+.container .bottom-container .list-box .list-heading {
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    font-size: 25px;
+    color: red;
+    font-weight: bold;
+    margin: 12px auto;
+}
+
+
+.container .bottom-container .list-box .items-container {
+    width: 90%;
+    height: 60%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style-type: none;
+    overflow-x: hidden;
+}
+
+.container .bottom-container .list-box .items-container li {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    position: relative;
+}
+
+.container .bottom-container .list-box .items-container li:hover {
+    background-color: #F7F7F7;
+    padding: 5px 0;
+}
+
+.container .bottom-container .list-box .items-container li .task-name {
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.container .bottom-container .list-box .items-container li .task-name:hover {
+    cursor: default;
+}
+
+.container .bottom-container .list-box .items-container li i {
+    font-size: 30px;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.container .bottom-container .list-box .items-container li i:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    color: red;
+}
+
+.container .bottom-container .list-box .list-tools {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+.container .bottom-container .list-box .list-tools i {
+    font-size: 32px;
+    color: green;
+    padding: 3px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+
+.container .bottom-container .list-box .list-tools .fa-trash-alt {
+    color: red;
+}
+
+
+/* scroll bar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: black; 
+    border-radius: 12px;
+}
+
+.add-list-popup {
+    width: 30%;
+    height: 40%;
+    background-color: white;
+    position: absolute;
+    top: -150%;
+    left: 50%;
+    opacity: 0;
+    /* transform: translate(-50%, -50%) scale(1); */
+    border: 0.5px solid rgb(238, 236, 236); 
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 100;       /* Foreground-Property */
+    transition: top 0ms ease-in-out 200ms, opacity 200ms ease-in-out 0ms, transition 200ms ease-in-out 0ms;
     
 }
-.add
-{
-    color: white;
+
+.add-list-popup.active {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+    transition: top 0ms ease-in-out 0ms, opacity 200ms ease-in-out 0ms, transition 200ms ease-in-out 0ms;
+}
+
+.add-list-popup .popup-heading {
+    font-family: 'Quicksand', sans-serif;
     font-size: 30px;
-    margin-left: 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    color:red;
 }
-#noitm
-{
-    color: white;
-    font-size: x-large;
-    font-family: "roboto",sans-serif;
-    margin-left: 300px;
-}
-#box
-{
-    background-color: white;
-    height: 150px;
-    width: 330px;
+
+.add-list-popup input {
+    width: 75%;
+    height: 25px;
+    padding: 1px 5px;
     text-align: center;
-    border-radius: 10px;
-    border: 1px solid red;
-    position: relative;
-    margin-left: 500px;
-    /* margin-top: 20px; */
-    visibility: hidden;
-}
-.adtodo
-{
-    color: red;
-    font-family: sans-serif;
     font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
-#adbtn
-{
-    color: white;
-    font-size: 15px;
+
+.add-list-popup button {
+    margin: 5px;
+    padding: 10px 25px;
+    border-radius: 40px;
+    border: none;
     background-color: red;
-    width: 50px;
-    padding: 3px;
-    border-radius: 20px;
-    font-family: sans-serif;
-    position: absolute;
-    bottom: 26px;
-    left: 80px;
-    border: 0px;
-}
-#clsbtn
-{
     color: white;
-    font-size: 15px;
-    background-color: red;
-    width: 50px;
-    padding: 3px;
-    border-radius: 20px;
-    font-family: sans-serif;
-    position: absolute;
-    bottom: 26px;
-    right: 90px;
-    border: 0px;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.6;
+    pointer-events: none;
 }
-#box1
-{
-    width: 180px;
-    height: 230px;
-    margin-top: 10px;
-    border-radius: 10px;
+
+.add-list-popup button.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.add-list-popup .back-button {
+    position: absolute;
+    top: 110%;
+    font-size: 45px;
+    color: red;
+    cursor: pointer;
+}
+
+/*  Add-Task wala Box-Styling */
+.add-task-popup {
+    width: 30%;
+    height: 40%;
     background-color: white;
-    border: solid 1px red;
-    text-align: center;
-    padding-top: 15px;
-    font-size: 18px;
+    position: absolute;
+    top: -150%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    border: 0.5px solid rgb(238, 236, 236); 
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 100;       /* Foreground-Property */
+    transition: top 0ms ease-in-out 200ms, opacity 200ms ease-in-out 0ms, transition 200ms ease-in-out 0ms;
+}
+
+.add-task-popup.active {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition: top 0ms ease-in-out 0ms, opacity 200ms ease-in-out 0ms, transition 200ms ease-in-out 0ms;
+}
+
+.add-task-popup .popup-heading {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
     color: red;
-    position: relative;
-    font-family: sans-serif;
-    /* filter: blur(3px); */
+}
+
+.add-task-popup input {
+    width: 75%;
+    height: 25px;
+    padding: 1px 5px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.add-task-popup button {
+    margin: 5px;
+    padding: 10px 25px;
+    border-radius: 40px;
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.add-task-popup button.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.add-task-popup .back-button {
+    position: absolute;
+    top: 110%;
+    font-size: 45px;
+    color: red;
+    cursor: pointer;
+}
+
+
+
+/* Moto G4 & Galaxy S5 Responsive */
+@media screen and (min-width: 360px) and (max-width: 600px){
+    .container{
+        width: 85%;
+        height: 77%;
+    }
+
+    .container .top-container {
+        height: 15%;
+        width: 80%;
+    }
+
+    .container .top-container .left-content {
+        font-size: 40px;
+        width: 80%;
+    }
+
+    .container .top-container .left-content .text-light{
+        margin-left: -10px;
+    }
+    
+    .container .top-container .right-content{
+        width: 20%;
+
+    }
+    
+    .container .top-container .right-content .text-small{
+        display: none;
+    }
+
+    .container .bottom-container .list-box {
+        width: 200px;
+        height: 300px;
+    }
+
+    .container .bottom-container .list-box .list-heading {
+        font-size: 25px
+    }
+
+    .container .bottom-container .list-box hr {
+        width: 55%;
+    }
+
+    .container .bottom-container .list-box .items-container {
+        margin: 5px auto;
+    }
+
+    .add-list-popup {
+        width: 68%;
+    }
+    
+    .add-task-popup {
+        width: 68%;
+    }
 
 }
-#parent
-{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 750px;
-    margin-left: 300px;
-    margin-top: 20px;
-    /* position: relative; */
-    /* bottom: 200px; */
-    /* text-align: center; */
-}
-#delete
-{
-    color: white;
-    background-color: red;
-    border-radius: 50%;
-    height: 26px;
-    width: 26px;
-    border: 0px;
-    bottom: 10px;
-    right: 40px;
-    position: absolute;
-    font-size: 12px;
-}
-#plus
-{
-    color:green;
-    background-color:white;
-    border-radius: 50%;
-    /* height: 25px; */
-    /* width: 25px; */
-    border: 0px;
-    bottom: 7px;
-    right: 0px;
-    position: absolute;
-    font-size: 25px;
-}
-#newlist
-{
-    background-color: white;
-    height: 150px;
-    width: 330px;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid red;
-    position: relative;
-    margin-left: 510px;
-    /* margin-top: 20px; */
-    visibility: hidden;
-    /* display: none; */
-}
-#closbtn
-{
-    color: white;
-    font-size: 15px;
-    background-color: red;
-    width: 50px;
-    padding: 3px;
-    border-radius: 20px;
-    font-family: sans-serif;
-    position: absolute;
-    bottom: 26px;
-    right: 90px;
-    border: 0px;
-}
-#addbtn
-{
-    color: white;
-    font-size: 15px;
-    background-color: red;
-    width: 50px;
-    padding: 3px;
-    border-radius: 20px;
-    font-family: sans-serif;
-    position: absolute;
-    bottom: 26px;
-    left: 80px;
-    border: 0px;
-}
-.para
-{
-    color: red;
-}
+
